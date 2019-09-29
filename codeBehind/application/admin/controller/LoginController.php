@@ -19,6 +19,7 @@ class LoginController{
 			exit_msg("密码不能为空");
 		}
 		$manage = Manage::getByName($data['name']);
+		return $manage;
 		if (!isset($manage)) {
 			exit_msg("此用户名不存在");
 		}

@@ -77,43 +77,39 @@
         <div class="left-nav">
             <div id="side-nav">
                 <ul id="nav">
-                    <li>
-                        <a onclick="xadmin.add_tab('我的桌面','{:url("admin/index/welcome")}')">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>欢迎界面</cite>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;">
-                            <i class="iconfont left-nav-li" lay-tips="系统初始">&#xe6b8;</i>
+                    <li class="open">
+                        <a href="javascript:;" class="active">
+                            <i class="iconfont left-nav-li" lay-tips="系统初始">&#xe723;</i>
                             <cite>系统初始</cite>
                             <i class="iconfont nav_right">&#xe697;</i></a>
-                        <ul class="sub-menu">
+                        <ul class="sub-menu" style="display: block;">
                             <li>
-                                <a onclick="xadmin.add_tab('人员管理','#')">
+                                <a onclick="xadmin.add_tab('人员管理','/admin/user')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>人员管理</cite></a>
                             </li>
                             <li>
-                                <a onclick="xadmin.add_tab('试题管理','#')">
+                                <a onclick="xadmin.add_tab('试题管理','/admin/index/develop')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>试题管理</cite></a>
                             </li>
+                            {if ($flag)}
                             <li>
-                                <a onclick="xadmin.add_tab('试题库管理','#')">
+                                <a onclick="xadmin.add_tab('试题库管理','/admin/index/develop')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>试题库管理</cite></a>
                             </li>
                             <li>
-                                <a onclick="xadmin.add_tab('人员分类管理','#')">
+                                <a onclick="xadmin.add_tab('人员分类管理','/admin/index/develop')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>人员分类管理</cite></a>
                             </li>
                             <li>
-                                <a onclick="xadmin.add_tab('部门管理','#')">
+                                <a onclick="xadmin.add_tab('部门管理','/admin/index/develop')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>部门管理</cite></a>
                             </li>
+                            {/if}
                             <!-- <li>
                                 <a href="javascript:;">
                                     <i class="iconfont">&#xe70b;</i>
@@ -131,38 +127,91 @@
                     </li>
                     <li>
                         <a href="javascript:;">
-                            <i class="iconfont left-nav-li" lay-tips="考前配置">&#xe6b8;</i>
+                            <i class="iconfont left-nav-li" lay-tips="考前配置">&#xe723;</i>
                             <cite>考前配置</cite>
                             <i class="iconfont nav_right">&#xe697;</i></a>
                         <ul class="sub-menu">
+                            {if ($flag)}
                             <li>
-                                <a onclick="xadmin.add_tab('考场管理','#')">
+                                <a onclick="xadmin.add_tab('考场管理','/admin/index/develop')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>考场管理</cite></a>
                             </li>
+                            {/if}
                             <li>
-                                <a onclick="xadmin.add_tab('考试配置','#')">
+                                <a onclick="xadmin.add_tab('考试配置','/admin/index/develop')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>考试配置</cite></a>
                             </li>
                             <li>
-                                <a onclick="xadmin.add_tab('试题分配','#')">
+                                <a onclick="xadmin.add_tab('试题分配','/admin/index/develop')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>试题分配</cite></a>
                             </li>
-                            <!-- <li>
-                                <a href="javascript:;">
-                                    <i class="iconfont">&#xe70b;</i>
-                                    <cite>会员管理</cite>
-                                    <i class="iconfont nav_right">&#xe697;</i></a>
-                                <ul class="sub-menu">
-                                    <li>
-                                        <a onclick="xadmin.add_tab('会员删除','member-del.html')">
-                                            <i class="iconfont">&#xe6a7;</i>
-                                            <cite>会员删除</cite></a>
-                                    </li>
-                                </ul>
-                            </li> -->
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <i class="iconfont left-nav-li" lay-tips="考试管理">&#xe6ce;</i>
+                            <cite>考试管理</cite>
+                            <i class="iconfont nav_right">&#xe697;</i></a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a onclick="xadmin.add_tab('考卷监控','/admin/index/develop')">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>考卷监控</cite></a>
+                            </li>
+                            <li>
+                                <a onclick="xadmin.add_tab('延时设置','/admin/index/develop')">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>延时设置</cite></a>
+                            </li>
+                            <li>
+                                <a onclick="xadmin.add_tab('服务器负载监控','/admin/index/develop')">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>服务器负载监控</cite></a>
+                            </li>
+                            <li>
+                                <a onclick="xadmin.add_tab('人员密码初始','/admin/index/develop')">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>人员密码初始</cite></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <i class="iconfont left-nav-li" lay-tips="成绩管理">&#xe723;</i>
+                            <cite>成绩管理</cite>
+                            <i class="iconfont nav_right">&#xe697;</i></a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a onclick="xadmin.add_tab('成绩统计','/admin/index/develop')">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>成绩统计</cite></a>
+                            </li>
+                            <li>
+                                <a onclick="xadmin.add_tab('成绩图表','/admin/index/develop')">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>成绩图表</cite></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <i class="iconfont left-nav-li" lay-tips="个人管理">&#xe6b8;</i>
+                            <cite>个人管理</cite>
+                            <i class="iconfont nav_right">&#xe697;</i></a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a onclick="xadmin.add_tab('密码管理','/admin/index/develop')">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>密码管理</cite></a>
+                            </li>
+                            <li>
+                                <a onclick="xadmin.add_tab('日志查看','/admin/index/develop')">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>日志查看</cite></a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
