@@ -13,16 +13,15 @@ return [
     '__pattern__' => [
         'name' => '\w+',
     ],
-    '[hello]'     => [
-        ':id'   => ['index/hello', ['method' => 'get'], ['id' => '\d+']],
-        ':name' => ['index/hello', ['method' => 'post']],
-    ],
+    // '[hello]'     => [
+    //     ':id'   => ['index/hello', ['method' => 'get'], ['id' => '\d+']],
+    //     ':name' => ['index/hello', ['method' => 'post']],
+    // ],
     // 注册 管理员登录的路由
     'superLogin' => [
     	'admin/login/index',
     	['ext' => 'html','method' => 'get']
     ],
-
     // 注册 后台页面初始的路由
     'admin' => [
         'admin/index/index',

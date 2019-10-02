@@ -5,7 +5,6 @@ class IndexController{
 	public function index($value='')
 	{
 		$data['flag'] = 0;
-
 		return view('',$data);
 	}
 	public function welcome($value='')

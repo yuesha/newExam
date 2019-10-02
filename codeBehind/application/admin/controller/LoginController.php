@@ -2,32 +2,52 @@
 
 namespace app\admin\controller;
 use app\model\ManageModel as Manage;
+use app\model\ManageLogModel as ManageLog;
+use think\Controller;
+use think\Request;
 
-class LoginController{
+class LoginController extends Controller{
+	// 渲染登录页面
 	public function index()
 	{
-		return view();
+		$isLogin = session("manage")?1:0;
+		return view('index',array('isLogin' => $isLogin));
 	}
 	// 检查用户名密码
 	public function check()
 	{
-		$data = input('post.data');
-		$data = json_decode($data,true);
-		if (!isset($data['name']) || empty($data['name'])) {
+		// 接收表单数据
+		$inData = input('post.data');
+		$inData = json_decode($inData,true);
+		// 判断用户名密码
+		if (!isset($inData['name']) || empty($inData['name'])) {
 			exit_msg("用户名不能为空");
-		}else if (!isset($data['pw']) || empty($data['pw'])) {
+		}else if (!isset($inData['pw']) || empty($inData['pw'])) {
 			exit_msg("密码不能为空");
 		}
-		$manage = Manage::getByName($data['name']);
-		return $manage;
+		// 获取数据库数据
+		$manage = Manage::getByName($inData['name']);
 		if (!isset($manage)) {
 			exit_msg("此用户名不存在");
 		}
 		// 密码加密规则
-		$en_pw = md5(md5($data['name'].$data['pw']));
+		$en_pw = md5(md5($inData['name'].$inData['pw']));
 		if ($en_pw != $manage -> pw) {
+			$data['manage_id'] = $manage -> id;
+			$data['action_ip'] = Request::instance()->ip();
+			$data['action_time'] = time();
+			$data['action'] = 4;
+			ManageLog::create($data);
 			exit_msg("密码错误！请重新输入");
 		}
-		exit_msg($manage -> created_at);
+		// 将整个管理员数据存入 session 然后跳转后台
+		session("manage",$manage -> toArray());
+		exit_msg("验证成功！",1);
+	}
+	// 登出方法
+	public function loginout()
+	{
+		session("manage",null);
+		$this -> success("登出成功！即将为您返回登录页面。","/superLogin.html");
 	}
 }
