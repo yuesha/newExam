@@ -13,7 +13,7 @@ class LoginController extends Controller{
 		$isLogin = session("manage")?1:0;
 		return view('index',array('isLogin' => $isLogin));
 	}
-	// 检查用户名密码
+	// 实现登录功能
 	public function check()
 	{
 		// 接收表单数据
@@ -42,12 +42,21 @@ class LoginController extends Controller{
 		}
 		// 将整个管理员数据存入 session 然后跳转后台
 		session("manage",$manage -> toArray());
+		$data2['manage_id'] = $manage -> id;
+		$data2['action_ip'] = Request::instance()->ip();
+		$data2['action_time'] = time();
+		$data2['action'] = 1;
+		ManageLog::create($data2);
+
 		exit_msg("验证成功！",1);
 	}
 	// 登出方法
-	public function loginout()
+	public function loginout($msg = '登出成功！即将为您返回登录页面。')
 	{
+		// 记录登出日志
+		ManageLog::log(3);
+		// 删除 session 记录
 		session("manage",null);
-		$this -> success("登出成功！即将为您返回登录页面。","/superLogin.html");
+		$this -> success($msg,"/superLogin.html");
 	}
 }
