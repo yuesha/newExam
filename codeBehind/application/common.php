@@ -17,3 +17,13 @@ function exit_msg($msg='',$code='0')
 	$json = json_encode(array('code' => $code,'msg' => $msg));
 	exit($json);
 }
+
+// 返回 layui-table 格式的数据
+function return_table($dataRows,$msg = '',$code = 1)
+{
+	$arr['code'] = 0;
+	$arr['msg'] = $msg;
+	$arr['count'] = count($dataRows);
+	$arr['data'] = $dataRows;
+	return json($arr);
+}
