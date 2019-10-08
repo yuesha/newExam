@@ -17,9 +17,9 @@ return [
     // 数据库名
     'database'        => 'FullExam',
     // 用户名
-    'username'        => 'root',
+    'username'        => 'FullExam',
     // 密码
-    'password'        => 'root',
+    'password'        => '123',
     // 端口
     'hostport'        => '',
     // 连接dsn
