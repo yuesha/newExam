@@ -28,7 +28,7 @@
 					</label>
 					<div class="layui-input-inline">
 						<input type="text" id="s_num" name="s_num" lay-verify=""
-						autocomplete="on" class="layui-input">
+						autocomplete="on" class="layui-input" value="{$userRow.s_num}">
 					</div>
 					<div class="layui-form-mid layui-word-aux">
 						如果置空，将使用默认编号
@@ -41,7 +41,7 @@
 					</label>
 					<div class="layui-input-inline">
 						<input type="text" id="name" name="name" required="" lay-verify="required"
-						autocomplete="off" class="layui-input">
+						autocomplete="off" class="layui-input" value="{$userRow.name}">
 					</div>
 				</div>
 
@@ -50,8 +50,8 @@
 						<span class="x-red">*</span>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别
 					</label>
 					<div class="layui-input-inline">
-						<input type="radio" name="sex" value="男" title="男" checked id="sex">
-						<input type="radio" name="sex" value="女" title="女">
+						<input type="radio" name="sex" value="男" title="男" {$userRow.sex=='男'?'checked':''} id="sex">
+						<input type="radio" name="sex" value="女" title="女" {$userRow.sex=='女'?'checked':''}>
 					</div>
 				</div>
 
@@ -61,10 +61,10 @@
 					</label>
 					<div class="layui-input-inline">
 						<input type="password" id="pw" name="pw" required="" lay-verify="pw"
-						autocomplete="off" class="layui-input" value="123456">
+						autocomplete="off" class="layui-input" value="000000" disabled>
 					</div>
 					<div class="layui-form-mid layui-word-aux">
-						6到16个字符(默认为123456)
+						<span class="x-red" onclick="$('#pw').val('').removeAttr('disabled').focus();">点这里修改密码</span>&nbsp;6到16个字符
 					</div>
 				</div>
 
@@ -74,12 +74,14 @@
 					</label>
 					<div class="layui-input-inline">
 						<input type="text" id="card" name="card" lay-verify="card"
-						autocomplete="off" class="layui-input">
+						autocomplete="off" class="layui-input" value="{$userRow.card}">
 					</div>
 					<div class="layui-form-mid layui-word-aux">
 						<span class="x-red"></span>
 					</div>
 				</div>
+
+				<input type="hidden" name="id" value="{$userRow.id}">
 
 				<div class="layui-form-item">
 					<label for="add_user" class="layui-form-label">
@@ -127,11 +129,6 @@
 
 			//自定义验证规则
 			form.verify({
-				// card: function(value) {
-				// 	if (value.length < 18) {
-				// 		return '身份证号不合规范';
-				// 	}
-				// },
                 pw: [/(.+){6,12}$/, '密码必须6到12位'],
 				card: function(val){
 					if (val != '') {
@@ -149,7 +146,7 @@
 					if (getData.code == 0) { // 异常
 						layer.msg(getData.msg,{icon: 5});
 					}else{
-						layer.msg("增加成功", {
+						layer.msg("修改成功", {
 							icon: 6
 						}, function() {
 							xadmin.close();

@@ -49,7 +49,7 @@
 	</script>
 	<!-- 左侧工具栏 -->
 	<script type="text/html" id="toolbar">
-		<a class="layui-btn layui-btn-xs layui-btn-primary" lay-event="detail" onclick="xadmin.open('编辑','{:url('/admin/users/save')}',600,500)">添加</a>
+		<a class="layui-btn layui-btn-xs layui-btn-primary" lay-event="detail" onclick="xadmin.open('添加人员信息','{:url('add')}',600,500)">添加</a>
 		<a class="layui-btn layui-btn-xs layui-btn-primary" lay-event="detail">批量导入</a>
 	</script>
 	<script>
@@ -59,7 +59,7 @@
 				elem: '#userList'
 				,title: '人员信息表'
 				// ,height: 312
-				,url: '/admin/users/user_list'
+				,url: '{:url("user_list")}'
 				,page: true
 				,loading: true
 				,toolbar:'#toolbar'
@@ -84,7 +84,7 @@
 
 				if(layEvent === 'detail'){
 				} else if(layEvent === 'del'){
-					layer.confirm('您确定要删除该条 人员信息 吗？', function(index){
+					layer.confirm('您确定要删除 ' + data.name + ' 的人员信息 吗？', function(index){
 						$.get('{:url("del")}/id/' + data.id + '', function(getData, textStatus, xhr) {
 							if (getData.code == 0) { // 异常
 								layer.msg(getData.msg,{icon: 5});
@@ -95,10 +95,11 @@
 						},"json");
 					});
 				} else if(layEvent === 'edit'){
-					obj.update({
-						username: '123'
-						,title: 'xxx'
-					});
+					xadmin.open('编辑人员信息','{:url("edit")}/id/' + data.id,600,500)
+					// obj.update({
+					// 	username: '123'
+					// 	,title: 'xxx'
+					// });
 				} else if(layEvent === 'LAYTABLE_TIPS'){
 					layer.alert('Hi，头部工具栏扩展的右侧图标。');
 				}
