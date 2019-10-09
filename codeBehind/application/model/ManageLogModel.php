@@ -17,6 +17,7 @@ class ManageLogModel extends Model
 			2 => '删除操作',
 			3 => '登出成功',
 			4 => '尝试登录，密码错误',
+			5 => '插入操作',
 		];
 		return $action[$value];
 	}

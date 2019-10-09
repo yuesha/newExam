@@ -19,11 +19,17 @@ function exit_msg($msg='',$code='0')
 }
 
 // 返回 layui-table 格式的数据
-function return_table($dataRows,$msg = '',$code = 1)
+function return_table($dataRows,$dataRowsAll,$msg = '',$code = 1)
 {
 	$arr['code'] = 0;
 	$arr['msg'] = $msg;
-	$arr['count'] = count($dataRows);
+	$arr['count'] = count($dataRowsAll);
 	$arr['data'] = $dataRows;
 	return json($arr);
+}
+
+// 数字补足所需位数(需要补足的数字，补几个0)
+function complement($num,$digit)
+{
+	return sprintf("%0".$digit."d",$num);
 }
