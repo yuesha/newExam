@@ -22,8 +22,8 @@ class UsersController extends adminBaseClass
 		$page = input('get.page');
 		$limit = input('get.limit');
 
-		$data['usersListAll'] = Users::order('created_at desc') -> select();
-		$data['usersList'] = Users::order('id asc') -> limit(($page-1)*$limit,$limit) -> select();
+		$data['usersListAll'] = Users::order('created_at desc') -> order('s_num asc') -> select();
+		$data['usersList'] = Users::order('s_num asc') -> order('id asc') -> limit(($page-1)*$limit,$limit) -> select();
 		return return_table($data['usersList'],$data['usersListAll']);
 	}
 
@@ -154,5 +154,29 @@ class UsersController extends adminBaseClass
 			ManageLog::log(2,$sql);
 			return exit_msg("删除成功！",1);
 		}
+	}
+
+	// 批量导入人员信息
+	public function uploadFile()
+	{
+		// 从 excel 文件当中获取数据
+		$initData = getExcelData();
+		foreach ($initData as $k => $v) {
+			if ((!isset($v[0])) || empty($v[0])) {
+				continue;
+			}
+			$data[$k]['s_num'] = trim($v[0]);
+			$data[$k]['name'] = trim($v[1]);
+			if (isset($v[2])) {
+				$v[2] = trim($v[2]);
+				$data[$k]['sex'] = $v[2]=='女'?'1':'0';
+			}
+			if (isset($v[3])) {
+				$data[$k]['card'] = trim($v[3]);
+			}
+		}
+		$user = new Users();
+		$user->saveAll($data);
+		exit_msg("导入成功！",1);
 	}
 }

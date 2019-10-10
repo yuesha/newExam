@@ -33,3 +33,34 @@ function complement($num,$digit)
 {
 	return sprintf("%0".$digit."d",$num);
 }
+
+// 使用 phpexcel 读取数据
+/**
+ * $codition 条件数组：文件限制大小、后缀
+ * $savePath 保存路径：默认在缓存目录下
+ */
+function getExcelData($condition = ['size'=>200000,'ext'=>'xlsx,xls,csv'],$savePath = RUNTIME_PATH . DS . 'excelField')
+{
+	import('PHPExcel.PHPExcel');
+	$objPHPExcel = new \PHPExcel();
+
+	//获取表单上传文件
+	$file = request()->file('excel');
+	$info = $file->validate($condition)->move($savePath);
+	if ($info) {
+		// 上传文件名
+		$fileSaveName = $info->getSaveName();
+		//上传文件的地址
+		$filePath = $savePath . DS . $fileSaveName;
+		$objReader =\PHPExcel_IOFactory::createReader('Excel2007');
+		//加载文件内容,编码utf-8
+		$obj_PHPExcel =$objReader->load($filePath, $encode = 'utf-8');
+		//转换为数组格式
+		$excel_array=$obj_PHPExcel->getsheet(0)->toArray();
+		// 去掉标题行
+		$title_row = array_shift($excel_array);  //删除第一个数组(标题);
+		return $excel_array;
+	}else{
+		exit_msg("上传失败，请检查权限问题！");
+	}
+}
