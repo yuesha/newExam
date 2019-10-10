@@ -30,6 +30,7 @@ class IndexController extends adminBaseClass{
 	// 待开发页面
 	public function develop()
 	{
-		return "正在开发中";
+		// return "正在开发中";
+		return view();
 	}
 }
